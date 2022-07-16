@@ -17,3 +17,7 @@ E uma quinta regra adicional que foi definida por nós:
 Os resultados dessa evolução muitas vezes são imprevisíveis, podendo chegar a estagnação, morte total da população, ou um ciclo de procriação infinito.
 
 Como executa o projeto?
+-Clonar o projeto do github, entrando na pagina do projeto, aperte code baixe o arquivo ou clone o repositorio
+-Instalar Jdk 17
+-Compilar usando o comando no terminal ".\mvnw.cmd clean install"
+-Executar o programa no terminal com o comando "java -jar .\target\game_of_life-0.0.1-SNAPSHOT.jar"
