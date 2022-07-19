@@ -10,6 +10,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.diogonunes.jcolor.AnsiFormat;
+import com.diogonunes.jcolor.Attribute;
+
+
+import static com.diogonunes.jcolor.Ansi.colorize;
+import static com.diogonunes.jcolor.Attribute.*;
+
+
 @SpringBootApplication
 public class GameOfLifeApplication implements CommandLineRunner {
 
@@ -24,16 +32,15 @@ public class GameOfLifeApplication implements CommandLineRunner {
 
 		System.out.println("Olá, quais vão ser o tamanho de Largura e Altura que você quer que tenha sua grade?");
 		Integer largura = null;
-		while(largura == null) {
+		while (largura == null) {
 			largura = getLargura().orElse(null);
 		}
 		Integer altura = null;
-		while(altura == null) {
+		while (altura == null) {
 			altura = getAltura().orElse(null);
 		}
-		
-	}
 
+	}
 
 	Optional<Integer> getLargura() {
 		try {
@@ -44,14 +51,14 @@ public class GameOfLifeApplication implements CommandLineRunner {
 			if (largura < 1) {
 				throw new InputMismatchException("O valor deve ser positivo");
 			}
-			LOG.info("largura: "+largura);
+			LOG.info("largura: " + largura);
 			return Optional.of(largura);
-		} catch (InputMismatchException ex){
+		} catch (InputMismatchException ex) {
 			System.out.println("Coloque um valor positivo Ex:1,2,3");
 			return Optional.empty();
 		}
 	}
-	
+
 	Optional<Integer> getAltura() {
 		try {
 			System.out.println("Altura?");
@@ -61,12 +68,14 @@ public class GameOfLifeApplication implements CommandLineRunner {
 			if (altura < 1) {
 				throw new InputMismatchException("O valor deve ser positivo");
 			}
-			LOG.info("altura: "+altura);
+			LOG.info("altura: " + altura);
 			return Optional.of(altura);
-		} catch (InputMismatchException ex){
+		} catch (InputMismatchException ex) {
 			System.out.println("Coloque um numero inteiro!!!");
 			return Optional.empty();
 		}
+
+		
 	}
 
 }
