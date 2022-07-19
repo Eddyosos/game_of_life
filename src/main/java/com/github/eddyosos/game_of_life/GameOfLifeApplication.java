@@ -1,5 +1,6 @@
 package com.github.eddyosos.game_of_life;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.Scanner;
@@ -37,37 +38,62 @@ public class GameOfLifeApplication implements CommandLineRunner {
 		while (altura == null) {
 			altura = getAltura().orElse(null);
 		}
-		grade(largura, altura);
+		var grade = new boolean [largura][altura];
+
+		printGrade(grade);
+
+
 	}
+
+	void perguntas() {
+		String posicoes = null;
+		int quantvivas;
+		Scanner sc = new Scanner(System.in);
+		char resp;
+		System.out.println("Você gostaria de preencher as celulas (s/n)?");
+		resp = sc.next().charAt(0);
+		if (resp == 's') {
+			System.out.println("Quantas celulas vão estar vivas?");
+			quantvivas = sc.nextInt();
+
+			System.out.println("Quais posições vão ser as celulas?");
+			for (int c = 0; c < quantvivas; c++) {
+				posicoes = sc.next();
+
+			}
+			System.out.println(resp + quantvivas + posicoes);
+		}
 	
 
-	void grade(int largura, int altura) {
-		for (int c = 0; c < altura; c++) {
-			linha(largura);
+	}
+
+	void printGrade(boolean [][] grade) {
+		for (int contador = 0; contador < grade.length; contador++) {
+			printLinha(grade[contador]);
 			System.out.print("\n");
 		}
 	}
 
-	void linha(int largura) {
-		for (int c = 0; c < largura; c++) {
-			quadrado(true);
+	void printLinha(boolean [] linha) {
+		for (int contador = 0; contador < linha.length; contador++) {
+			printCelula(linha[contador]);
 		}
 	}
 
-	void quadrado(boolean quadrado) {
-		if (quadrado == true) {
-			preenchido();
+	void printCelula(boolean isVivo) {
+		if (isVivo) {
+			printVivo();
 		} else {
-			vazio();
+			printMorto();
 		}
 
 	}
 
-	void preenchido() {
+	void printVivo() {
 		System.out.print(colorize(" ", GREEN_BACK()));
 	}
 
-	void vazio() {
+	void printMorto() {
 		System.out.print(colorize(" ", RED_BACK()));
 	}
 
