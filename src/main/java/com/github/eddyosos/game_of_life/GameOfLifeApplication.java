@@ -13,10 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
 
-
 import static com.diogonunes.jcolor.Ansi.colorize;
 import static com.diogonunes.jcolor.Attribute.*;
-
 
 @SpringBootApplication
 public class GameOfLifeApplication implements CommandLineRunner {
@@ -39,7 +37,38 @@ public class GameOfLifeApplication implements CommandLineRunner {
 		while (altura == null) {
 			altura = getAltura().orElse(null);
 		}
+		grade(largura, altura);
+	}
+	
 
+	void grade(int largura, int altura) {
+		for (int c = 0; c < altura; c++) {
+			linha(largura);
+			System.out.print("\n");
+		}
+	}
+
+	void linha(int largura) {
+		for (int c = 0; c < largura; c++) {
+			quadrado(true);
+		}
+	}
+
+	void quadrado(boolean quadrado) {
+		if (quadrado == true) {
+			preenchido();
+		} else {
+			vazio();
+		}
+
+	}
+
+	void preenchido() {
+		System.out.print(colorize(" ", GREEN_BACK()));
+	}
+
+	void vazio() {
+		System.out.print(colorize(" ", RED_BACK()));
 	}
 
 	Optional<Integer> getLargura() {
@@ -75,7 +104,6 @@ public class GameOfLifeApplication implements CommandLineRunner {
 			return Optional.empty();
 		}
 
-		
 	}
 
 }
