@@ -41,27 +41,28 @@ public class GameOfLifeApplication implements CommandLineRunner {
 		var grade = new boolean [largura][altura];
 
 		printGrade(grade);
-
+		montagemSeed(grade);
 
 	}
 
-	void perguntas() {
-		String posicoes = null;
-		int quantvivas;
+	void montagemSeed(boolean [][] grade) {
 		Scanner sc = new Scanner(System.in);
 		char resp;
 		System.out.println("Você gostaria de preencher as celulas (s/n)?");
 		resp = sc.next().charAt(0);
 		if (resp == 's') {
-			System.out.println("Quantas celulas vão estar vivas?");
-			quantvivas = sc.nextInt();
+			do {
+				System.out.println("Qual a localização da celula no sentido horizontal? >>>>>");
+				var linha = sc.nextInt()-1;
+				System.out.printf("Qual a localização da celula no sentido vertical? V V V" );
+				var coluna = sc.nextInt()-1;
 
-			System.out.println("Quais posições vão ser as celulas?");
-			for (int c = 0; c < quantvivas; c++) {
-				posicoes = sc.next();
-
-			}
-			System.out.println(resp + quantvivas + posicoes);
+				grade[coluna][linha] = true;
+				printGrade(grade);
+				System.out.println("Gostaria de colocar mais uma celula?");
+				resp = sc.next().charAt(0);
+			} while (resp != 'n');
+			
 		}
 	
 
