@@ -38,14 +38,33 @@ public class GameOfLifeApplication implements CommandLineRunner {
 		while (altura == null) {
 			altura = getAltura().orElse(null);
 		}
-		var grade = new boolean [largura][altura];
+		var grade = new boolean[largura][altura];
 
 		printGrade(grade);
 		montagemSeed(grade);
+		
+		System.out.println("Qual celula você gostaria de ver seus vizinhos? ");
+		Scanner sc = new Scanner(System.in);
+		int viz1, viz2;
+		viz1 = sc.nextInt()-1;
+		viz2 = sc.nextInt()-1;
+		System.out.println(grade[viz1][viz2]);
+		System.out.println(grade[viz1-1][viz2-1]);
+		System.out.println(grade[viz1-1][viz2]);
+		System.out.println(grade[viz1-1][viz2+1]);
+		System.out.println(grade[viz1][viz2-1]);
+		System.out.println(grade[viz1][viz2+1]);
+		System.out.println(grade[viz1+1][viz2-1]);
+		System.out.println(grade[viz1+1][viz2]);
+		System.out.println(grade[viz1+1][viz2+1]);
+
+		
 
 	}
 
-	void montagemSeed(boolean [][] grade) {
+
+
+	void montagemSeed(boolean[][] grade) {
 		Scanner sc = new Scanner(System.in);
 		char resp;
 		System.out.println("Você gostaria de preencher as celulas (s/n)?");
@@ -53,29 +72,28 @@ public class GameOfLifeApplication implements CommandLineRunner {
 		if (resp == 's') {
 			do {
 				System.out.println("Qual a localização da celula no sentido horizontal? >>>>>");
-				var linha = sc.nextInt()-1;
-				System.out.printf("Qual a localização da celula no sentido vertical? V V V" );
-				var coluna = sc.nextInt()-1;
+				var coluna = sc.nextInt() - 1;
+				System.out.println("Qual a localização da celula no sentido vertical? V");
+				var linha = sc.nextInt() - 1;
 
-				grade[coluna][linha] = true;
+				grade[linha][coluna] = true;
 				printGrade(grade);
 				System.out.println("Gostaria de colocar mais uma celula?");
 				resp = sc.next().charAt(0);
 			} while (resp != 'n');
-			
+
 		}
-	
 
 	}
 
-	void printGrade(boolean [][] grade) {
+	void printGrade(boolean[][] grade) {
 		for (int contador = 0; contador < grade.length; contador++) {
 			printLinha(grade[contador]);
 			System.out.print("\n");
 		}
 	}
 
-	void printLinha(boolean [] linha) {
+	void printLinha(boolean[] linha) {
 		for (int contador = 0; contador < linha.length; contador++) {
 			printCelula(linha[contador]);
 		}
