@@ -57,6 +57,7 @@ public class GameOfLifeApplication implements CommandLineRunner {
 		System.out.println(grade[viz1+1][viz2-1]);
 		System.out.println(grade[viz1+1][viz2]);
 		System.out.println(grade[viz1+1][viz2+1]);
+		
 
 		
 
