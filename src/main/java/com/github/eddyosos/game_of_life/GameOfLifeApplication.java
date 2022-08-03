@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.SystemPropertyUtils;
 
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
@@ -42,28 +43,47 @@ public class GameOfLifeApplication implements CommandLineRunner {
 
 		printGrade(grade);
 		montagemSeed(grade);
-		
+
 		System.out.println("Qual celula você gostaria de ver seus vizinhos? ");
 		Scanner sc = new Scanner(System.in);
-		int viz1, viz2;
-		viz1 = sc.nextInt()-1;
-		viz2 = sc.nextInt()-1;
-		System.out.println(grade[viz1][viz2]);
-		System.out.println(grade[viz1-1][viz2-1]);
-		System.out.println(grade[viz1-1][viz2]);
-		System.out.println(grade[viz1-1][viz2+1]);
-		System.out.println(grade[viz1][viz2-1]);
-		System.out.println(grade[viz1][viz2+1]);
-		System.out.println(grade[viz1+1][viz2-1]);
-		System.out.println(grade[viz1+1][viz2]);
-		System.out.println(grade[viz1+1][viz2+1]);
 		
+		var xCelula = 0;
+		var yCelula = 0;
+		var contador = 0;
+		
+		var x = xCelula - 1;
+		var y = yCelula - 1;
+		var z = xCelula + 1;
+		var v = yCelula + 1;
+		if (x >= 0 && x < grade.length && y >= 0 && y < grade[0].length && grade[x][y]) {
+			contador += 1;
+		}
 
-		
+		if (x >= 0 && x < grade.length && yCelula >= 0 && yCelula < grade[0].length && grade[x][yCelula]) {
+			contador += 1;
+		}
+
+		if (x >= 0 && x < grade.length && v >= 0 && v < grade[0].length && grade[x][v]) {
+			contador += 1;
+		}
+		if (xCelula >= 0 && xCelula < grade.length && y >= 0 && y < grade[0].length && grade[xCelula][y]) {
+			contador += 1;
+		}
+		if (xCelula >= 0 && xCelula < grade.length && v >= 0 && v < grade[0].length && grade[xCelula][v]) {
+			contador += 1;
+		}
+		if (z >= 0 && z < grade.length && y >= 0 && y < grade[0].length && grade[z][y]) {
+			contador += 1;
+		}
+		if (z >= 0 && z < grade.length && yCelula >= 0 && yCelula < grade[0].length && grade[z][yCelula]) {
+			contador += 1;
+		}
+		if (z >= 0 && z < grade.length && v >= 0 && v < grade[0].length && grade[z][v]) {
+			contador += 1;
+		}
+		System.out.println(contador);
 
 	}
-
-
 
 	void montagemSeed(boolean[][] grade) {
 		Scanner sc = new Scanner(System.in);
