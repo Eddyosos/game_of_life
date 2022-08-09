@@ -46,12 +46,34 @@ public class GameOfLifeApplication implements CommandLineRunner {
 
 		System.out.println("Qual celula você gostaria de ver seus vizinhos? ");
 
-		var xCelula = 1;
-		var yCelula = 1;
+		var gradeNova = new boolean[largura][altura];
+		
+		for (int xCelula = 0; xCelula < grade.length; xCelula++){
+			for (int yCelula = 0; yCelula < grade.length; yCelula ++){
+				gradeNova [xCelula][yCelula] = regrasGameOfLife(xCelula, yCelula, grade);
+			}
+		}
+
+		printGrade(gradeNova);
+			
+
+
+
+		
 	
-		System.out.println(contaQuantosVizinhosEstaoVivos(xCelula, yCelula, grade));
+	
+		
+
+
+		// Qualquer célula viva com menos de dois vizinhos vivos morre de solidão.
+		//Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.
+		// Qualquer célula morta com exatamente três vizinhos vivos se torna uma célula viva.
+		// Qualquer célula viva com dois ou três vizinhos vivos continua no mesmo estado para a próxima geração.
+
 
 	}
+
+
 
 	int contaQuantosVizinhosEstaoVivos (int xCelula, int yCelula, boolean [][] grade) {
 		var contador = 0;
@@ -153,7 +175,24 @@ public class GameOfLifeApplication implements CommandLineRunner {
 
 
 
+	boolean regrasGameOfLife (int xCelula, int yCelula, boolean [][] grade) {
 
+		if (grade [xCelula][yCelula] && contaQuantosVizinhosEstaoVivos(xCelula, yCelula, grade) < 2) {
+			return false;
+		}
+		else if (grade [xCelula][yCelula] && contaQuantosVizinhosEstaoVivos(xCelula, yCelula, grade) > 3) {
+			return false;
+		}
+		else if (!grade [xCelula][yCelula] && contaQuantosVizinhosEstaoVivos(xCelula, yCelula, grade) == 3) {
+			return true;
+		}
+		else if (grade [xCelula][yCelula] && (contaQuantosVizinhosEstaoVivos(xCelula, yCelula, grade) == 2 || contaQuantosVizinhosEstaoVivos(xCelula, yCelula, grade) == 3)) {
+			return true;
+		}
+		else
+			return false;
+
+	}
 
 	void montagemSeed(boolean[][] grade) {
 		Scanner sc = new Scanner(System.in);
