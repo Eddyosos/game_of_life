@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.SystemPropertyUtils;
 
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
@@ -42,26 +43,115 @@ public class GameOfLifeApplication implements CommandLineRunner {
 
 		printGrade(grade);
 		montagemSeed(grade);
-		
-		System.out.println("Qual celula você gostaria de ver seus vizinhos? ");
-		Scanner sc = new Scanner(System.in);
-		int viz1, viz2;
-		viz1 = sc.nextInt()-1;
-		viz2 = sc.nextInt()-1;
-		System.out.println(grade[viz1][viz2]);
-		System.out.println(grade[viz1-1][viz2-1]);
-		System.out.println(grade[viz1-1][viz2]);
-		System.out.println(grade[viz1-1][viz2+1]);
-		System.out.println(grade[viz1][viz2-1]);
-		System.out.println(grade[viz1][viz2+1]);
-		System.out.println(grade[viz1+1][viz2-1]);
-		System.out.println(grade[viz1+1][viz2]);
-		System.out.println(grade[viz1+1][viz2+1]);
-		
 
-		
+		System.out.println("Qual celula você gostaria de ver seus vizinhos? ");
+
+		var xCelula = 1;
+		var yCelula = 1;
+	
+		System.out.println(contaQuantosVizinhosEstaoVivos(xCelula, yCelula, grade));
 
 	}
+
+	int contaQuantosVizinhosEstaoVivos (int xCelula, int yCelula, boolean [][] grade) {
+		var contador = 0;
+
+		if (isVizinhoNoresteVivo(xCelula, yCelula, grade)) {
+			contador += 1;
+		}
+
+		if (isVizinhoNorteVivo(xCelula, yCelula, grade)) {
+			contador += 1;
+		}
+
+		if (isVizinhoNordesteVivo(xCelula, yCelula, grade)) {
+			contador += 1;
+		}
+
+		if (isVizinhoOesteVivo(xCelula, yCelula, grade)) {
+			contador += 1;
+		}
+
+		if (isVizinhoLesteVivo(xCelula, yCelula, grade)) {
+			contador += 1;
+		}
+
+		if (isVizinhoSudoesteVivo(xCelula, yCelula, grade)) {
+			contador += 1;
+		}
+
+		if (isVizinhoSulVivo(xCelula, yCelula, grade)) {
+			contador += 1;
+		}
+
+		if (isVizinhoSudesteVivo(xCelula, yCelula, grade)) {
+			contador += 1;
+		}
+		return contador;
+	}
+
+	boolean isVizinhoNoresteVivo(int xCelula, int yCelula, boolean[][] grade) {
+		var xVizinhoNegativo = xCelula - 1;
+		var yVizinhosNegativo = yCelula - 1;
+		return xVizinhoNegativo >= 0 && xVizinhoNegativo < grade.length && yVizinhosNegativo >= 0
+				&& yVizinhosNegativo < grade[0].length && grade[xVizinhoNegativo][yVizinhosNegativo];
+
+	}
+
+	boolean isVizinhoNorteVivo(int xCelula, int yCelula, boolean[][] grade) {
+		var xVizinhoNegativo = xCelula - 1;
+		return xVizinhoNegativo >= 0 && xVizinhoNegativo < grade.length && yCelula >= 0 && yCelula < grade[0].length
+				&& grade[xVizinhoNegativo][yCelula];
+
+	}
+
+	boolean isVizinhoNordesteVivo(int xCelula, int yCelula, boolean[][] grade) {
+		var xVizinhoNegativo = xCelula - 1;
+		var yVizinhoPositivo = yCelula + 1;
+		return xVizinhoNegativo >= 0 && xVizinhoNegativo < grade.length && yVizinhoPositivo >= 0
+		&& yVizinhoPositivo < grade[0].length && grade[xVizinhoNegativo][yVizinhoPositivo];
+	}
+
+	boolean isVizinhoOesteVivo(int xCelula, int yCelula, boolean[][] grade) {
+		var yVizinhosNegativo = yCelula - 1;
+		return xCelula >= 0 && xCelula < grade.length && yVizinhosNegativo >= 0 && yVizinhosNegativo < grade[0].length
+				&& grade[xCelula][yVizinhosNegativo];
+	}
+
+	boolean isVizinhoLesteVivo(int xCelula, int yCelula, boolean[][] grade) {
+		var yVizinhoPositivo = yCelula + 1;
+		return xCelula >= 0 && xCelula < grade.length && yVizinhoPositivo >= 0 && yVizinhoPositivo < grade[0].length
+				&& grade[xCelula][yVizinhoPositivo];
+	}
+
+	boolean isVizinhoSudoesteVivo(int xCelula, int yCelula, boolean[][] grade) {
+		var yVizinhosNegativo = yCelula - 1;
+		var xVizinhoPositivo = xCelula + 1;
+		return xVizinhoPositivo >= 0 && xVizinhoPositivo < grade.length && yVizinhosNegativo >= 0
+				&& yVizinhosNegativo < grade[0].length && grade[xVizinhoPositivo][yVizinhosNegativo];
+	}
+
+	boolean isVizinhoSulVivo(int xCelula, int yCelula, boolean[][] grade) {
+		var xVizinhoPositivo = xCelula + 1;
+		return xVizinhoPositivo >= 0 && xVizinhoPositivo < grade.length && yCelula >= 0 && yCelula < grade[0].length
+				&& grade[xVizinhoPositivo][yCelula];
+	}
+
+	boolean isVizinhoSudesteVivo(int xCelula, int yCelula, boolean[][] grade) {
+		var xVizinhoPositivo = xCelula + 1;
+		var yVizinhoPositivo = yCelula + 1;
+		return xVizinhoPositivo >= 0 && xVizinhoPositivo < grade.length && yVizinhoPositivo >= 0
+				&& yVizinhoPositivo < grade[0].length && grade[xVizinhoPositivo][yVizinhoPositivo];
+	}
+
+
+
+
+
+
+
+
+
 
 
 
